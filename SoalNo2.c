@@ -1,7 +1,7 @@
 
 #include<stdio.h>
 #include<pthread.h>
-int total=0, sum=0;
+int total=0;
 void *prima (void *args)
 {
 	int *i, n, j, factor;
@@ -13,7 +13,6 @@ void *prima (void *args)
 	}
 	if (factor==2)
 	{
-		sum+=*i;
 		total++;
 	}
 }
@@ -28,6 +27,5 @@ void main()
 		pthread_create(&t1, NULL, prima, (void*)&i);
 		pthread_join(t1, NULL);
 	}
-	printf("Jumlah bilangan prima: %d\n", sum);
 	printf("Banyak bilangan prima: %d\n", total);
 }
