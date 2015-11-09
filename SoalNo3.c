@@ -33,7 +33,7 @@ int main()
 {
 	pthread_t t1, t2;
 	pthread_create(&t1, NULL, run1, NULL);
-	pthread_join(t1, NULL);
 	pthread_create(&t2, NULL, run2, NULL);
+	pthread_join(t1, NULL);
 	pthread_join(t2, NULL);
 }
