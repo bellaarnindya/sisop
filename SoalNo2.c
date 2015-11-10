@@ -1,33 +1,44 @@
 
 #include<stdio.h>
 #include<pthread.h>
-int total=0, sum=0;
+#include<stdlib.h>
+struct prime
+{
+	int bil;
+	int* total;
+};
+
 void *prima (void *args)
 {
-	int *i, n, j, factor;
+	int j, factor;
+	struct prime* thread=(struct prime*)args;
 	factor=0;
-	i = (int*)args;
-	for (j=1; j<=*i; j++)
+	for (j=1; j<=(thread->bil); j++)
 	{
-		if (*i%j==0) factor++;
+		if ((thread->bil)%j==0) factor++;
 	}
 	if (factor==2)
 	{
-		sum+=*i;
-		total++;
+		*(thread->total)=*(thread->total)+1;
 	}
 }
 
 void main()
 {
-	pthread_t t1;
-	int i, n;
+	int i, n, total=0;
 	scanf("%d", &n);
+	pthread_t *t1=(pthread_t*)malloc(sizeof(pthread_t)*(n+1));
+	struct prime *p=(struct prime*)malloc(sizeof(struct prime)*(n+1));
 	for (i=2; i<n; i++)
 	{
-		pthread_create(&t1, NULL, prima, (void*)&i);
-		pthread_join(t1, NULL);
+		p[i].bil=i;
+		p[i].total=&total;
+		pthread_create(&t1[i], NULL, prima, &p[i]);
 	}
-	printf("Jumlah bilangan prima: %d\n", sum);
-	printf("Banyak bilangan prima: %d\n", total);
+
+	for(i=2; i<n; i++)
+	{
+		pthread_join(t1[i], NULL);
+	}
+	printf("%d\n",  total);
 }
