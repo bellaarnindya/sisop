@@ -1,6 +1,7 @@
 
 #include<stdio.h>
 #include<pthread.h>
+<<<<<<< HEAD
 #include<stdlib.h>
 struct prime
 {
@@ -8,6 +9,9 @@ struct prime
 	int* total;
 };
 
+=======
+int total=0;
+>>>>>>> 8d01548e9bc665a6cfbeb8a68ce773558099f63a
 void *prima (void *args)
 {
 	int j, factor;
@@ -19,7 +23,11 @@ void *prima (void *args)
 	}
 	if (factor==2)
 	{
+<<<<<<< HEAD
 		*(thread->total)=*(thread->total)+1;
+=======
+		total++;
+>>>>>>> 8d01548e9bc665a6cfbeb8a68ce773558099f63a
 	}
 }
 
@@ -40,5 +48,9 @@ void main()
 	{
 		pthread_join(t1[i], NULL);
 	}
+<<<<<<< HEAD
 	printf("%d\n",  total);
+=======
+	printf("Banyak bilangan prima: %d\n", total);
+>>>>>>> 8d01548e9bc665a6cfbeb8a68ce773558099f63a
 }
